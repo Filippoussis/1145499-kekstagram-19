@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Филиппов](https://up.htmlacademy.ru/javascript/19/user/1145499).
-* Наставник: [Олег Анисимов] (https://htmlacademy.ru/profile/id867993).
+* Наставник: [Евгений Самойленко] (https://htmlacademy.ru/profile/id999539).
 
 ---
 
