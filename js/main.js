@@ -28,7 +28,7 @@ var renderPicture = function (picture) {
 };
 
 var rundomInteger = function (min, max) {
-  // случайное число от min до (max+1)
+  // случайное число от min до (max включительно)
   var rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 };
@@ -37,11 +37,14 @@ var pictures = [];
 
 for (var i = 0; i < PICTURES; i++) {
   var j = i + 1;
-  pictures[i] = {};
-  pictures[i].url = 'photos/' + j + '.jpg';
-  pictures[i].description = 'Описание фотографии №' + j;
-  pictures[i].likes = rundomInteger(LIKES_MIN, LIKES_MAX);
-  pictures[i].comments = COMMENTS[rundomInteger(0, COMMENTS.length - 1)];
+
+  pictures[i] = {
+    url: 'photos/' + j + '.jpg',
+    description: 'Описание фотографии №' + j,
+    likes: rundomInteger(LIKES_MIN, LIKES_MAX),
+    comments: COMMENTS[rundomInteger(0, COMMENTS.length - 1)]
+  };
+
   fragment.appendChild(renderPicture(pictures[i]));
 }
 
