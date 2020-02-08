@@ -1,6 +1,6 @@
 'use strict';
 
-var PICTURES = 25;
+var PICTURES_COUNT = 25;
 var LIKES_MIN = 15;
 var LIKES_MAX = 200;
 var PICTURE_COMMENTS_MAX = 2;
@@ -91,7 +91,7 @@ var rundomQuantityComments = function () {
 
 var pictures = [];
 
-for (var i = 0; i < PICTURES; i++) {
+for (var i = 0; i < PICTURES_COUNT; i++) {
   var j = i + 1;
 
   pictures[i] = {
