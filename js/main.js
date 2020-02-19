@@ -4,6 +4,7 @@ var PICTURES_COUNT = 25;
 var LIKES_MIN = 15;
 var LIKES_MAX = 200;
 var PICTURE_COMMENTS_MAX = 2;
+var ESC_KEY = 'Escape';
 
 var COMMENTS = [
   'Настоящая леди не выставляет грудь напоказ до обеда.',
@@ -43,7 +44,7 @@ var DESCRIPTIONS = [
   'Буря на море ночью',
   'Мостик. Саввинская слобода',
   'Переход Суворова через Альпы',
-  'Девушка с распцщенной косой',
+  'Девушка с распущенной косой',
   'Портрет Александра Пушкина',
   'Наполеон на Бородинских высотах',
   'Бурлаки на Волге',
@@ -106,32 +107,8 @@ for (var i = 0; i < PICTURES_COUNT; i++) {
 
 picturesList.appendChild(fragment);
 
-var bigPicture = document.querySelector('.big-picture');
-bigPicture.classList.remove('hidden');
-document.querySelector('body').classList.add('modal-open');
-bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
-bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+// Раздел 4. Обработка событий. Глава 9. Личный проект: доверяй, но проверяй (часть 1)
 
-bigPicture.querySelector('.big-picture__img img').src = pictures[0].url;
-bigPicture.querySelector('.likes-count').textContent = pictures[0].likes;
-bigPicture.querySelector('.social__caption').textContent = pictures[0].description;
-
-var socialText = bigPicture.querySelectorAll('.social__text');
-for (var b = 0; b < socialText.length; b++) {
-  socialText[b].textContent = pictures[0].comments[b];
-}
-
-bigPicture.querySelector('.comments-count').textContent = socialText.length;
-
-// временно скрываю блок с большой фотографией, поднятый на предыдущем задании,
-// не совсем понятна логика выбранной последовательности заданий (видимо потренироваться на будущее и да, это была 2 часть,
-// которую как сказал лектор можно делать позже)
-
-bigPicture.classList.add('hidden');
-
-// Раздел 4. Обработка ссобытий. Глава 9. Личный проект: доверяй, но проверяй (часть 1)
-
-var ESC_KEY = 'Escape';
 var formEditPicture = document.querySelector('.img-upload__overlay');
 var uploadFile = document.querySelector('#upload-file');
 var closeButton = formEditPicture.querySelector('#upload-cancel');
@@ -326,3 +303,48 @@ formHashtags.addEventListener('input', function (evt) {
   }
 });
 
+// Раздел 4. Обработка событий. Глава 9. Личный проект: доверяй, но проверяй (часть 2)
+
+var bigPicture = document.querySelector('.big-picture');
+var pictureItem = document.querySelectorAll('.picture');
+var bigPictureComment = bigPicture.querySelector('.social__footer-text');
+var closeButtonBigPicture = bigPicture.querySelector('.big-picture__cancel');
+
+var onBigPictureEscPress = function (evt) {
+  if (evt.key === ESC_KEY && bigPictureComment !== document.activeElement) {
+    closeBigPicture();
+  }
+};
+
+var closeBigPicture = function () {
+  bigPicture.classList.add('hidden');
+  document.removeEventListener('keydown', onBigPictureEscPress);
+};
+
+closeButtonBigPicture.addEventListener('click', closeBigPicture);
+
+var openBigPicture = function (item, picture) {
+
+  item.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    document.querySelector('body').classList.add('modal-open');
+    bigPicture.classList.remove('hidden');
+    bigPicture.querySelector('.big-picture__img img').src = picture.url;
+    bigPicture.querySelector('.likes-count').textContent = picture.likes;
+    bigPicture.querySelector('.social__caption').textContent = picture.description;
+    bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
+    bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+
+    var socialText = bigPicture.querySelectorAll('.social__text');
+    bigPicture.querySelector('.comments-count').textContent = socialText.length;
+    for (var b = 0; b < socialText.length; b++) {
+      socialText[b].textContent = picture.comments[b];
+    }
+
+    document.addEventListener('keydown', onBigPictureEscPress);
+  });
+};
+
+for (var w = 0; w < pictureItem.length; w++) {
+  openBigPicture(pictureItem[w], pictures[w]);
+}
