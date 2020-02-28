@@ -1,17 +1,24 @@
 'use strict';
 
 (function () {
-  var formEditPicture = document.querySelector('.img-upload__overlay');
-  var imagePreview = formEditPicture.querySelector('.img-upload__preview img');
-  var levelPinValue = document.querySelector('.effect-level__value');
-  var linePin = document.querySelector('.effect-level__line');
-  var levelPin = document.querySelector('.effect-level__pin');
-  var levelDepth = document.querySelector('.effect-level__depth');
+
   var MAX_BLUR = 3;
   var MIN_BRIGHTNESS = 1;
   var MAX_BRIGHTNESS = 3;
 
-  levelPin.addEventListener('mousedown', function (evt) {
+  var FORM_EDIT_PICTURE = document.querySelector('.img-upload__overlay');
+  var IMAGE_PREVIEW = FORM_EDIT_PICTURE.querySelector('.img-upload__preview img');
+
+  var EFFECT_LEVEL = FORM_EDIT_PICTURE.querySelector('.effect-level');
+
+  var EFFECT_LEVEL_PIN = EFFECT_LEVEL.querySelector('.effect-level__pin');
+  var EFFECT_LEVEL_DEPTH = EFFECT_LEVEL.querySelector('.effect-level__depth');
+
+  var EFFECT_LEVEL_VALUE = EFFECT_LEVEL.querySelector('.effect-level__value');
+  var EFFECT_LEVEL_LINE = EFFECT_LEVEL.querySelector('.effect-level__line');
+
+
+  EFFECT_LEVEL_PIN.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = {
       x: evt.clientX
@@ -28,34 +35,32 @@
         x: moveEvt.clientX
       };
 
-      var newX = levelPin.offsetLeft - shift.x;
+      var newX = EFFECT_LEVEL_PIN.offsetLeft - shift.x;
 
       if (newX < 0) {
         newX = 0;
       }
 
-      if (newX > linePin.offsetWidth) {
-        newX = linePin.offsetWidth;
+      if (newX > EFFECT_LEVEL_LINE.offsetWidth) {
+        newX = EFFECT_LEVEL_LINE.offsetWidth;
       }
 
-      levelPin.style.left = (newX) + 'px';
+      EFFECT_LEVEL_PIN.style.left = (newX) + 'px';
 
-      var koef = newX / linePin.offsetWidth;
-      levelPinValue.value = Math.round(koef * 100);
+      var koef = newX / EFFECT_LEVEL_LINE.offsetWidth;
+      EFFECT_LEVEL_VALUE.value = Math.round(koef * 100);
 
-      levelDepth.style.width = koef * 100 + '%';
+      EFFECT_LEVEL_DEPTH.style.width = koef * 100 + '%';
 
-      if (imagePreview.className === 'effects__preview--chrome') {
-        imagePreview.style.filter = 'grayscale(' + koef + ')';
-      } else if (imagePreview.className === 'effects__preview--sepia') {
-        imagePreview.style.filter = 'sepia(' + koef + ')';
-      } else if (imagePreview.className === 'effects__preview--marvin') {
-        imagePreview.style.filter = 'invert(' + koef + ')';
-      } else if (imagePreview.className === 'effects__preview--phobos') {
-        imagePreview.style.filter = 'blur(' + koef * MAX_BLUR + 'px)';
-      } else if (imagePreview.className === 'effects__preview--heat') {
-        imagePreview.style.filter = 'brightness(' + (MIN_BRIGHTNESS + koef * (MAX_BRIGHTNESS - 1)) + ')';
-      }
+      var classEffect = {
+        'effects__preview--chrome': 'grayscale(' + koef + ')',
+        'effects__preview--sepia': 'sepia(' + koef + ')',
+        'effects__preview--marvin': 'invert(' + koef + ')',
+        'effects__preview--phobos': 'blur(' + koef * MAX_BLUR + 'px)',
+        'effects__preview--heat': 'brightness(' + (MIN_BRIGHTNESS + koef * (MAX_BRIGHTNESS - 1)) + ')'
+      };
+
+      IMAGE_PREVIEW.style.filter = classEffect[IMAGE_PREVIEW.className];
     };
 
     var onMouseUp = function (upEvt) {
