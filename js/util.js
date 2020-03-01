@@ -1,6 +1,6 @@
 'use strict';
-
 (function () {
+
   var ESC_KEY = 'Escape';
 
   var getRandomBetween = function (min, max) {

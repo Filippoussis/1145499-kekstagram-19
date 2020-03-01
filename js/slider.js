@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
 
   var MAX_BLUR = 3;

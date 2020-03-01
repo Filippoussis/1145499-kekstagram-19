@@ -1,6 +1,6 @@
 'use strict';
-
 (function () {
+
   var FORM_EDIT_PICTURE = document.querySelector('.img-upload__overlay');
   var COMMENTS = FORM_EDIT_PICTURE.querySelector('.text__description');
   var HASHTAGS = FORM_EDIT_PICTURE.querySelector('.text__hashtags');

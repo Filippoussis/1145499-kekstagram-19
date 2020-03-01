@@ -1,18 +1,34 @@
 'use strict';
 (function () {
 
-  var PICTURE_COMMENTS_MAX = 2;
+  var COMMENTS_MIN = 0;
+  var COMMENTS_MAX = 5;
 
-  var getRandomComments = function () {
+  var getContent = function () {
+    var contentComments = window.data.COMMENTS[window.util.getRandomBetween(0, window.data.COMMENTS.length - 1)];
+    return contentComments;
+  };
+
+  var getFullComment = function () {
+    var fullComment = {
+      message: getContent(),
+      name: window.guest.getName(),
+      avatar: window.guest.getAvatar()
+    };
+    return fullComment;
+  };
+
+  var getPictureComments = function () {
     var pictureComments = [];
-    for (var i = 0; i < PICTURE_COMMENTS_MAX; i++) {
-      pictureComments[i] = window.data.COMMENTS[window.util.getRandomBetween(0, window.data.COMMENTS.length - 1)];
+    var randomQuantityComments = window.util.getRandomBetween(COMMENTS_MIN, COMMENTS_MAX);
+    for (var i = 0; i < randomQuantityComments; i++) {
+      pictureComments[i] = getFullComment();
     }
     return pictureComments;
   };
 
   window.comments = {
-    getRandomComments: getRandomComments
+    getPictureComments: getPictureComments
   };
 
 })();

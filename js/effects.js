@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
 
   var FORM_EDIT_PICTURE = document.querySelector('.img-upload__overlay');

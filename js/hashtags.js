@@ -1,6 +1,6 @@
 'use strict';
-
 (function () {
+
   var formHashtags = document.querySelector('.text__hashtags');
   formHashtags.addEventListener('input', function (evt) {
     var target = evt.target;
