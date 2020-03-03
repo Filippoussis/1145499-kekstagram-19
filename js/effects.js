@@ -12,7 +12,7 @@
 
   var IMAGE_PREVIEW = FORM_EDIT_PICTURE.querySelector('.img-upload__preview img');
 
-  var setEffect = function (control) {
+  var onEffectPress = function (control) {
 
     var getNewEffect = function () {
 
@@ -33,10 +33,14 @@
     control.addEventListener('change', getNewEffect);
   };
 
-  (function () {
+  var setEffects = function () {
     for (var i = 0; i < CONTROLS_LIST.length; i++) {
-      setEffect(CONTROLS_LIST[i]);
+      onEffectPress(CONTROLS_LIST[i]);
     }
-  })();
+  };
+
+  window.effects = {
+    set: setEffects
+  };
 
 })();

@@ -2,8 +2,11 @@
 (function () {
 
   var MAX_BLUR = 3;
-  var MIN_BRIGHTNESS = 1;
-  var MAX_BRIGHTNESS = 3;
+
+  var Brightness = {
+    MIN: 1,
+    MAX: 3
+  };
 
   var FORM_EDIT_PICTURE = document.querySelector('.img-upload__overlay');
   var IMAGE_PREVIEW = FORM_EDIT_PICTURE.querySelector('.img-upload__preview img');
@@ -16,8 +19,7 @@
   var EFFECT_LEVEL_VALUE = EFFECT_LEVEL.querySelector('.effect-level__value');
   var EFFECT_LEVEL_LINE = EFFECT_LEVEL.querySelector('.effect-level__line');
 
-
-  EFFECT_LEVEL_PIN.addEventListener('mousedown', function (evt) {
+  var onMouseDown = function (evt) {
     evt.preventDefault();
     var startCoords = {
       x: evt.clientX
@@ -56,7 +58,7 @@
         'effects__preview--sepia': 'sepia(' + koef + ')',
         'effects__preview--marvin': 'invert(' + koef + ')',
         'effects__preview--phobos': 'blur(' + koef * MAX_BLUR + 'px)',
-        'effects__preview--heat': 'brightness(' + (MIN_BRIGHTNESS + koef * (MAX_BRIGHTNESS - 1)) + ')'
+        'effects__preview--heat': 'brightness(' + (Brightness.MIN + koef * (Brightness.MAX - 1)) + ')'
       };
 
       IMAGE_PREVIEW.style.filter = classEffect[IMAGE_PREVIEW.className];
@@ -71,5 +73,8 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
+
+  EFFECT_LEVEL_PIN.addEventListener('mousedown', onMouseDown);
+
 })();

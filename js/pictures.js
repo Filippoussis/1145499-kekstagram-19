@@ -1,25 +1,23 @@
 'use strict';
 (function () {
 
-  var PICTURES_COUNT = 25;
-
-  var getPictures = function () {
+  var getPictures = function (quantity, description, likes, comments) {
 
     var pictures = [];
-    for (var i = 0; i < PICTURES_COUNT; i++) {
+    for (var i = 0; i < quantity; i++) {
 
       pictures[i] = {
         url: 'photos/' + (i + 1) + '.jpg',
-        description: window.data.DESCRIPTIONS[i],
-        likes: window.guest.getLikes(),
-        comments: window.comments.getPictureComments()
+        description: description[i],
+        likes: likes(),
+        comments: comments()
       };
     }
     return pictures;
   };
 
   window.pictures = {
-    getPictures: getPictures()
+    get: getPictures
   };
 
 })();

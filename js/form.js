@@ -16,6 +16,7 @@
 
   var openForm = function () {
     FORM_EDIT_PICTURE.classList.remove('hidden');
+    window.effects.set();
     document.addEventListener('keydown', onFormEscPress);
   };
 

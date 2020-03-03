@@ -1,34 +1,25 @@
 'use strict';
 (function () {
 
-  var COMMENTS_MIN = 0;
-  var COMMENTS_MAX = 5;
-
-  var getContent = function () {
-    var contentComments = window.data.COMMENTS[window.util.getRandomBetween(0, window.data.COMMENTS.length - 1)];
-    return contentComments;
-  };
-
-  var getFullComment = function () {
+  var getFullComment = function (message, name, avatar) {
     var fullComment = {
-      message: getContent(),
-      name: window.guest.getName(),
-      avatar: window.guest.getAvatar()
+      message: message(),
+      name: name(),
+      avatar: avatar()
     };
     return fullComment;
   };
 
-  var getPictureComments = function () {
+  var getPictureComments = function (quantity, message, name, avatar) {
     var pictureComments = [];
-    var randomQuantityComments = window.util.getRandomBetween(COMMENTS_MIN, COMMENTS_MAX);
-    for (var i = 0; i < randomQuantityComments; i++) {
-      pictureComments[i] = getFullComment();
+    for (var i = 0; i < quantity(); i++) {
+      pictureComments[i] = getFullComment(message, name, avatar);
     }
     return pictureComments;
   };
 
   window.comments = {
-    getPictureComments: getPictureComments
+    get: getPictureComments
   };
 
 })();

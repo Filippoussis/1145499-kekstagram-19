@@ -6,18 +6,13 @@
     var target = evt.target;
     var targetValue = target.value;
     var arr = targetValue.split(' ');
-    var arrLetter = [];
 
-    for (var x = 0; x < arr.length; x++) {
-      arrLetter[x] = arr[x].split('');
-    }
+    var arrLetter = arr.map(function (elem) {
+      return elem.split('');
+    });
 
     var arrLetterFilter = arrLetter.filter(function (elem) {
-      if (elem.indexOf('#') === 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return elem.indexOf('#') === 0;
     });
 
     if (arrLetterFilter.length !== arrLetter.length) {
@@ -28,6 +23,7 @@
 
     if (arr.length > 3) {
       target.setCustomValidity('Не более 3 хеш-тегов. Пробел в конце последнего не ставится');
+      return;
     }
   });
 })();

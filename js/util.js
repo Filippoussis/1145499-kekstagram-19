@@ -9,8 +9,14 @@
     return Math.floor(rand);
   };
 
+  var getRandomItem = function (arr) {
+    return arr[getRandomBetween(0, arr.length - 1)];
+  };
+
   window.util = {
     ESC_KEY: ESC_KEY,
-    getRandomBetween: getRandomBetween
+    getRandomBetween: getRandomBetween,
+    getRandomItem: getRandomItem
   };
+
 })();
