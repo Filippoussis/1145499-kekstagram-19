@@ -2,12 +2,11 @@
 (function () {
 
   var getFullComment = function (message, name, avatar) {
-    var fullComment = {
+    return {
       message: message(),
       name: name(),
       avatar: avatar()
     };
-    return fullComment;
   };
 
   var getPictureComments = function (quantity, message, name, avatar) {

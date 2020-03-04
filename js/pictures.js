@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  var getPictures = function (quantity, description, likes, comments) {
+  var mockData = function (quantity, description, likes, comments) {
 
     var pictures = [];
     for (var i = 0; i < quantity; i++) {
@@ -17,7 +17,7 @@
   };
 
   window.pictures = {
-    get: getPictures
+    get: mockData
   };
 
 })();

@@ -19,6 +19,38 @@
   var EFFECT_LEVEL_VALUE = EFFECT_LEVEL.querySelector('.effect-level__value');
   var EFFECT_LEVEL_LINE = EFFECT_LEVEL.querySelector('.effect-level__line');
 
+  var getGrayscaleValue = function (koef) {
+    return 'grayscale(' + koef + ')';
+  };
+
+  var getSepiaValue = function (koef) {
+    return 'sepia(' + koef + ')';
+  };
+
+  var getInvertValue = function (koef) {
+    return 'invert(' + koef + ')';
+  };
+
+  var getBlurValue = function (koef) {
+    return 'blur(' + koef * MAX_BLUR + 'px)';
+  };
+
+  var getBrightnessValue = function (koef) {
+    return 'brightness(' + (Brightness.MIN + koef * (Brightness.MAX - 1)) + ')';
+  };
+
+  var getEffectValue = function (koef) {
+    var classEffect = {
+      'effects__preview--chrome': getGrayscaleValue(koef),
+      'effects__preview--sepia': getSepiaValue(koef),
+      'effects__preview--marvin': getInvertValue(koef),
+      'effects__preview--phobos': getBlurValue(koef),
+      'effects__preview--heat': getBrightnessValue(koef)
+    };
+    return classEffect[IMAGE_PREVIEW.className];
+  };
+
+
   var onMouseDown = function (evt) {
     evt.preventDefault();
     var startCoords = {
@@ -53,15 +85,7 @@
 
       EFFECT_LEVEL_DEPTH.style.width = koef * 100 + '%';
 
-      var classEffect = {
-        'effects__preview--chrome': 'grayscale(' + koef + ')',
-        'effects__preview--sepia': 'sepia(' + koef + ')',
-        'effects__preview--marvin': 'invert(' + koef + ')',
-        'effects__preview--phobos': 'blur(' + koef * MAX_BLUR + 'px)',
-        'effects__preview--heat': 'brightness(' + (Brightness.MIN + koef * (Brightness.MAX - 1)) + ')'
-      };
-
-      IMAGE_PREVIEW.style.filter = classEffect[IMAGE_PREVIEW.className];
+      IMAGE_PREVIEW.style.filter = getEffectValue(koef);
     };
 
     var onMouseUp = function (upEvt) {

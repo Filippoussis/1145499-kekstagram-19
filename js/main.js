@@ -22,31 +22,31 @@
 
   var description = window.data.DESCRIPTIONS;
 
-  var message = function () {
+  var getRandomMessage = function () {
     return window.util.getRandomItem(window.data.COMMENTS);
   };
 
-  var name = function () {
+  var getRandomName = function () {
     return window.util.getRandomItem(window.data.NAMES);
   };
 
-  var avatar = function () {
+  var getRandomAvatar = function () {
     return 'img/avatar-' + window.util.getRandomBetween(Avatar.MIN, Avatar.MAX) + '.svg';
   };
 
-  var quantityComments = function () {
+  var getRandomCommentsCount = function () {
     return window.util.getRandomBetween(Comments.MIN, Comments.MAX);
   };
 
-  var likes = function () {
+  var getRandomLikesCount = function () {
     return window.util.getRandomBetween(Likes.MIN, Likes.MAX);
   };
 
-  var comments = function () {
-    return window.comments.get(quantityComments, message, name, avatar);
+  var getRandomComments = function () {
+    return window.comments.get(getRandomCommentsCount, getRandomMessage, getRandomName, getRandomAvatar);
   };
 
-  var pictures = window.pictures.get(PICTURES_QUANTITY, description, likes, comments);
+  var pictures = window.pictures.get(PICTURES_QUANTITY, description, getRandomLikesCount, getRandomComments);
   GALLERY.appendChild(window.gallery.get(pictures));
 
   var pictureNodeList = document.querySelectorAll('.picture');

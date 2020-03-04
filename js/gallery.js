@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  var getCloneElement = function (picture) {
+  var renderPhoto = function (picture) {
     var pictureTemplate = document.querySelector('#picture').content;
     var pictureCloneElement = pictureTemplate.cloneNode(true);
 
@@ -13,19 +13,19 @@
     return pictureCloneElement;
   };
 
-  var getGallery = function (pictures) {
+  var renderGallery = function (pictures) {
 
     var fragment = document.createDocumentFragment();
 
     pictures.forEach(function (it) {
-      fragment.appendChild(getCloneElement(it));
+      fragment.appendChild(renderPhoto(it));
     });
 
     return fragment;
   };
 
   window.gallery = {
-    get: getGallery
+    get: renderGallery
   };
 
 })();
