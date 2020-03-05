@@ -1,31 +1,46 @@
 'use strict';
-
 (function () {
-  var effects = document.querySelector('.effects');
-  var controls = effects.querySelectorAll('.effects__radio');
-  var effectLevel = document.querySelector('.effect-level');
-  var formEditPicture = document.querySelector('.img-upload__overlay');
-  var imagePreview = formEditPicture.querySelector('.img-upload__preview img');
-  var levelPin = document.querySelector('.effect-level__pin');
-  var levelDepth = document.querySelector('.effect-level__depth');
 
-  var changeEffect = function (control) {
+  var FORM_EDIT_PICTURE = document.querySelector('.img-upload__overlay');
 
-    control.addEventListener('change', function () {
+  var EFFECTS = FORM_EDIT_PICTURE.querySelector('.effects');
+  var CONTROLS_LIST = EFFECTS.querySelectorAll('.effects__radio');
+
+  var EFFECT_LEVEL = FORM_EDIT_PICTURE.querySelector('.effect-level');
+  var EFFECT_LEVEL_PIN = EFFECT_LEVEL.querySelector('.effect-level__pin');
+  var EFFECT_LEVEL_DEPTH = EFFECT_LEVEL.querySelector('.effect-level__depth');
+
+  var IMAGE_PREVIEW = FORM_EDIT_PICTURE.querySelector('.img-upload__preview img');
+
+  var onEffectPress = function (control) {
+
+    var getNewEffect = function () {
+
       var newEffect = 'effects__preview--' + control.value;
+
       if (control.value !== 'none') {
-        effectLevel.classList.remove('hidden');
+        EFFECT_LEVEL.classList.remove('hidden');
       } else {
-        effectLevel.classList.add('hidden');
+        EFFECT_LEVEL.classList.add('hidden');
       }
-      imagePreview.className = newEffect;
-      imagePreview.style.filter = '';
-      levelPin.style.left = '';
-      levelDepth.style.width = '';
-    });
+
+      IMAGE_PREVIEW.className = newEffect;
+      IMAGE_PREVIEW.style.filter = '';
+      EFFECT_LEVEL_PIN.style.left = '';
+      EFFECT_LEVEL_DEPTH.style.width = '';
+    };
+
+    control.addEventListener('change', getNewEffect);
   };
 
-  for (var z = 0; z < controls.length; z++) {
-    changeEffect(controls[z]);
-  }
+  var setEffects = function () {
+    for (var i = 0; i < CONTROLS_LIST.length; i++) {
+      onEffectPress(CONTROLS_LIST[i]);
+    }
+  };
+
+  window.effects = {
+    set: setEffects
+  };
+
 })();
